@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orders — Admin Panel</title>
+  <link rel="stylesheet" href="admin.css" />
+  <style>
+    /* Filter tabs */
+    .filter-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+    .filter-tab {
+      padding: 5px 12px;
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      font-family: var(--font);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .filter-tab:hover { background: var(--bg); }
+    .filter-tab.active {
+      background: var(--btn-primary);
+      color: #fff;
+      border-color: var(--btn-primary);
+    }
+    .tab-count {
+      background: rgba(255,255,255,0.25);
+      padding: 1px 6px;
+      border-radius: 10px;
+      font-size: 0.7rem;
+      font-family: var(--mono);
+    }
+    .filter-tab:not(.active) .tab-count {
+      background: var(--bg);
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+<div class="admin-layout">
+
+  <!-- ══════════════════════════════════
+       SIDEBAR
+  ══════════════════════════════════ -->
+  <aside class="sidebar" role="navigation" aria-label="Admin navigation">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-name">
+        <div class="brand-icon" aria-hidden="true">🍽</div>
+        FoodAdmin
+      </div>
+      <div class="sidebar-subtitle">Admin Panel</div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="sidebar-nav-section">Main</div>
+      <a href="dashboard.html" class="sidebar-link">
+        <span class="link-icon">▤</span> Dashboard
+      </a>
+      <a href="menu.html" class="sidebar-link">
+        <span class="link-icon">☰</span> Manage Menu
+      </a>
+      <a href="orders.html" class="sidebar-link active">
+        <span class="link-icon">📋</span> Orders
+      </a>
+      <div class="sidebar-nav-section" style="margin-top:16px">Customer Side</div>
+      <a href="../index.html" class="sidebar-link" target="_blank">
+        <span class="link-icon">↗</span> Customer App
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="#" class="sidebar-link" id="logout-btn">
+        <span class="link-icon">⏻</span> Logout
+      </a>
+    </div>
+  </aside>
+
+  <!-- ══════════════════════════════════
+       MAIN CONTENT
+  ══════════════════════════════════ -->
+  <div class="main-content">
+
+    <div class="topbar">
+      <span class="topbar-title">Orders</span>
+      <div class="topbar-right">
+        <span id="last-updated" class="text-muted" style="font-size: 0.8rem; margin-right: 12px;"></span>
+        <span class="topbar-badge" id="order-count">—</span>
+        <button id="refresh-orders-btn" class="btn btn-outline btn-sm">↻ Refresh</button>
+      </div>
+    </div>
+
+    <div class="page-body">
+
+      <!-- ── Toolbar: filter tabs + search ── -->
+      <div class="section-header" style="flex-wrap:wrap;gap:12px;margin-bottom:16px">
+
+        <!--
+          Filter tabs — each tab filters the rendered table client-side.
+          Tabs and their counts are built by admin-orders.js → renderFilterTabs().
+          Clicking a tab sets activeFilter and calls renderOrdersTable().
+        -->
+        <div id="filter-tabs" class="filter-tabs" role="group" aria-label="Filter by status">
+          <!-- Populated by admin-orders.js -->
+          <div class="text-muted" style="font-size:0.8rem">Loading filters…</div>
+        </div>
+
+        <div class="flex gap-8">
+          <!--
+            Search box — filters by order ID, customer name, or item name.
+            Fires admin-orders.js getFilteredOrders() on each keystroke.
+          -->
+          <input
+            class="form-input"
+            type="search"
+            id="orders-search"
+            placeholder="Search orders…"
+            style="width:200px"
+            aria-label="Search orders"
+          />
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════
+           ORDERS TABLE
+           Connects to:
+             GET   /api/orders               → load all rows
+             PATCH /api/orders/:id/status    → status dropdown change
+      ══════════════════════════════ -->
+      <div class="table-card">
+        <div class="table-scroll">
+          <table class="data-table" aria-label="Orders list">
+            <thead>
+              <tr>
+                <th style="width:120px">Order</th>
+                <th style="width:120px">Customer</th>
+                <th>Items</th>
+                <th style="width:120px">Status</th>
+                <!--
+                  "Change Status" column:
+                  Each cell contains a <select> dropdown with all valid statuses.
+                  On change → admin-orders.js onStatusChange()
+                            → PATCH /api/orders/:id/status { status: "newValue" }
+                  The badge in the Status column updates optimistically.
+                -->
+                <th style="width:180px">Change Status</th>
+                <th style="width:80px" class="text-right">Total</th>
+              </tr>
+            </thead>
+            <tbody id="orders-tbody">
+              <!-- Populated by admin-orders.js → GET /api/orders -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Status legend -->
+      <div style="margin-top:14px;display:flex;gap:12px;flex-wrap:wrap">
+        <span style="font-size:0.74rem;color:var(--text-muted);font-weight:500;letter-spacing:0.04em;text-transform:uppercase">
+          Statuses:
+        </span>
+        <span class="badge badge-pending"><span class="badge-dot"></span>Pending</span>
+        <span class="badge badge-confirmed"><span class="badge-dot"></span>Confirmed</span>
+        <span class="badge badge-preparing"><span class="badge-dot"></span>Preparing</span>
+        <span class="badge badge-ready"><span class="badge-dot"></span>Ready</span>
+        <span class="badge badge-delivered"><span class="badge-dot"></span>Delivered</span>
+        <span class="badge badge-cancelled"><span class="badge-dot"></span>Cancelled</span>
+      </div>
+
+    </div><!-- /page-body -->
+  </div><!-- /main-content -->
+</div><!-- /admin-layout -->
+
+<div id="toast-container" role="status" aria-live="polite"></div>
+
+<script src="admin-utils.js"></script>
+<script src="admin-orders.js"></script>
+<script>
+  document.getElementById('logout-btn')?.addEventListener('click', e => {
+    e.preventDefault();
+    if (confirm('Log out?')) showToast('Logged out.', 'info');
+  });
+</script>
+</body>
+</html>

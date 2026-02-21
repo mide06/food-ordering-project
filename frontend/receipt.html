@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Receipt - FUL RESTAURANT</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      padding: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .receipt-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    
+    .receipt-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 30px;
+      text-align: center;
+    }
+    
+    .receipt-header h1 {
+      margin: 0 0 10px 0;
+      font-size: 2.2em;
+      font-weight: 300;
+    }
+    
+    .receipt-header p {
+      margin: 0;
+      opacity: 0.9;
+      font-size: 1.1em;
+    }
+    
+    .receipt-content {
+      padding: 30px;
+    }
+    
+    .order-info {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 25px;
+    }
+    
+    .order-info h3 {
+      margin: 0 0 15px 0;
+      color: #333;
+      font-size: 1.3em;
+    }
+    
+    .order-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    
+    .detail-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .detail-label {
+      font-weight: 600;
+      color: #555;
+    }
+    
+    .detail-value {
+      color: #333;
+      text-align: right;
+    }
+    
+    .items-section {
+      margin-bottom: 25px;
+    }
+    
+    .items-section h3 {
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 1.3em;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #667eea;
+    }
+    
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      margin-bottom: 10px;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+    
+    .item-details {
+      flex: 1;
+    }
+    
+    .item-name {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    
+    .item-description {
+      color: #666;
+      font-size: 0.9em;
+    }
+    
+    .item-quantity {
+      background: #667eea;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.9em;
+      margin: 0 15px;
+    }
+    
+    .item-price {
+      font-weight: bold;
+      color: #333;
+      font-size: 1.1em;
+    }
+    
+    .total-section {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    
+    .total-amount {
+      font-size: 2.5em;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    
+    .receipt-actions {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 2px solid #f0f0f0;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 12px 25px;
+      margin: 0 10px;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .btn-primary {
+      background: #667eea;
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: #5a6fd8;
+      transform: translateY(-1px);
+    }
+    
+    .btn-secondary {
+      background: #6c757d;
+      color: white;
+    }
+    
+    .btn-secondary:hover {
+      background: #5a6268;
+      transform: translateY(-1px);
+    }
+    
+    .loading {
+      text-align: center;
+      padding: 50px;
+      color: #666;
+    }
+    
+    .error {
+      text-align: center;
+      padding: 50px;
+      color: #dc3545;
+      background: #f8d7da;
+      border-radius: 8px;
+      margin: 20px;
+    }
+    
+    .success-badge {
+      background: #28a745;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9em;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 15px;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+      
+      .receipt-content {
+        padding: 20px;
+      }
+      
+      .order-details {
+        grid-template-columns: 1fr;
+      }
+      
+      .menu-item {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .item-quantity {
+        margin: 10px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="receipt-container">
+    <div class="receipt-header">
+      <h1>🍽️ FUL RESTAURANT</h1>
+      <p>Thank you for your order!</p>
+    </div>
+    
+    <div class="receipt-content">
+      <div id="loading" class="loading">
+        <h3>Loading your receipt...</h3>
+        <p>Please wait while we prepare your order details.</p>
+      </div>
+      
+      <div id="error" class="error" style="display: none;">
+        <h3>Unable to load receipt</h3>
+        <p id="error-message">Something went wrong. Please try again.</p>
+      </div>
+      
+      <div id="receipt-data" style="display: none;">
+        <div class="success-badge">✅ Payment Confirmed</div>
+        
+        <div class="order-info">
+          <h3>Order Information</h3>
+          <div class="order-details">
+            <div class="detail-item">
+              <span class="detail-label">Order ID:</span>
+              <span class="detail-value" id="order-id"></span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Order Number:</span>
+              <span class="detail-value" id="order-number"></span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Customer:</span>
+              <span class="detail-value" id="customer-name"></span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Date & Time:</span>
+              <span class="detail-value" id="order-date"></span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Status:</span>
+              <span class="detail-value" id="order-status"></span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Delivery Address:</span>
+              <span class="detail-value" id="delivery-address"></span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="items-section">
+          <h3>Order Items</h3>
+          <div id="order-items"></div>
+        </div>
+        
+        <div class="total-section">
+          <h3>Total Amount</h3>
+          <div class="total-amount" id="total-amount">₦0.00</div>
+          <p>Payment Status: <strong>PAID</strong></p>
+        </div>
+        
+        <div class="receipt-actions">
+          <button class="btn btn-secondary" onclick="window.print()">🖨️ Print Receipt</button>
+          <a href="/menu.html" class="btn btn-primary">🍴 Order Again</a>
+          <a href="/orders.html" class="btn btn-secondary">📋 View Order History</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="utils.js"></script>
+  <script src="receipt.js"></script>
+</body>
+</html>

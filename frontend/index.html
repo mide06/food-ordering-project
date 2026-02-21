@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FUL RESTAURANT — Fine dining, delivered. Order exquisite dishes from the comfort of your table." />
+  <title>FUL RESTAURANT — Fine Dining</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════
+       NAVIGATION
+  ══════════════════════════════════════ -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">FUL <span>RESTAURANT</span></a>
+
+      <ul class="nav-links" role="list">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li>
+          <a href="cart.html" class="cart-link">
+            Cart
+            <span class="cart-badge" aria-label="Items in cart" style="display:none">0</span>
+          </a>
+        </li>
+        <li><a href="orders.html">Orders</a></li>
+        <li id="user-nav"></li>
+      </ul>
+
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════
+       HERO SECTION
+  ══════════════════════════════════════ -->
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="hero-bg" aria-hidden="true">
+      <div class="hero-grid-lines"></div>
+      <div class="hero-bg-shape"></div>
+    </div>
+
+    <div class="hero-content">
+      <!-- Text column -->
+      <div class="hero-text">
+        <span class="eyebrow">Est. Since 2018 — Paris</span>
+        <h1 class="hero-title" id="hero-heading">
+          Where every<br><em>dish tells</em><br>a story
+        </h1>
+        <p class="hero-description">
+          Curated seasonal menus crafted by award-winning chefs.
+          From intimate dinners to grand celebrations — order online
+          and experience Amazing at your table.
+        </p>
+        <div class="hero-actions">
+          <a href="menu.html" class="btn btn-accent btn-lg">Explore the Menu</a>
+          <a href="orders.html" class="btn btn-outline btn-lg">My Orders</a>
+        </div>
+
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-number" data-target="48" data-suffix="+">0+</div>
+            <div class="hero-stat-label">Dishes</div>
+          </div>
+          <div>
+            <div class="hero-stat-number" data-target="5" data-suffix=" Chefs">0 Chefs</div>
+            <div class="hero-stat-label">Michelin Stars</div>
+          </div>
+          <div>
+            <div class="hero-stat-number" data-target="12000" data-suffix="">0</div>
+            <div class="hero-stat-label">Happy Guests</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Visual column -->
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-card-stack">
+          <div class="hero-card-back"></div>
+          <div class="hero-card-front">
+            <div class="hero-card-dish-img">
+              <span>🥩</span>
+            </div>
+            <div>
+              <div class="hero-card-dish-name">Dry-Aged Ribeye</div>
+              <div class="hero-card-dish-price">₦68</div>
+            </div>
+            <div>
+              <span class="hero-card-dish-tag">Chef's Pick</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       FEATURES SECTION
+  ══════════════════════════════════════ -->
+  <section class="features-section" aria-labelledby="features-heading">
+    <span class="section-label">The Experience</span>
+    <h2 class="section-title" id="features-heading">Refined from kitchen to door</h2>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon" aria-hidden="true">🌿</div>
+        <h3 class="feature-title">Seasonal & Local</h3>
+        <p class="feature-desc">
+          Our menus change weekly to reflect the finest produce from local artisan
+          farmers, ensuring peak freshness in every bite.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon" aria-hidden="true">⭐</div>
+        <h3 class="feature-title">Award-Winning Chefs</h3>
+        <p class="feature-desc">
+          A brigade of Michelin-recognised chefs brings decades of culinary
+          mastery to your dining experience.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon" aria-hidden="true">🍷</div>
+        <h3 class="feature-title">Sommelier Curated</h3>
+        <p class="feature-desc">
+          Our in-house sommelier personally selects every wine on the list,
+          with perfect pairings suggested for each dish.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon" aria-hidden="true">🏺</div>
+        <h3 class="feature-title">Artisan Tableware</h3>
+        <p class="feature-desc">
+          Each dish is presented on hand-thrown ceramics commissioned from
+          independent potters across Europe.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon" aria-hidden="true">🚀</div>
+        <h3 class="feature-title">Swift Delivery</h3>
+        <p class="feature-desc">
+          Your order arrives precisely when promised — hot, beautifully packaged,
+          and ready to impress.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon" aria-hidden="true">🌙</div>
+        <h3 class="feature-title">Open Late</h3>
+        <p class="feature-desc">
+          From breakfast pastries to late-night desserts — MAISON is ready
+          to serve from 7am until midnight.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <span class="footer-logo">FUL RESTAURANT</span>
+      <nav aria-label="Footer navigation">
+        <ul class="nav-links" style="position:static;display:flex;background:none;border:none;padding:0;gap:24px">
+          <li><a href="menu.html" style="color:var(--stone);font-size:0.8rem">Menu</a></li>
+          <li><a href="cart.html" style="color:var(--stone);font-size:0.8rem">Cart</a></li>
+          <li><a href="orders.html" style="color:var(--stone);font-size:0.8rem">Orders</a></li>
+        </ul>
+      </nav>
+      <span class="footer-copy">© 2024 FUL RESTAURANT. All rights reserved.</span>
+    </div>
+  </footer>
+
+  <!-- Toast container (injected by JS, but pre-declared for accessibility) -->
+  <div id="toast-container" role="status" aria-live="polite"></div>
+
+  <!-- Scripts: utils first, then page-specific -->
+  <script src="utils.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>

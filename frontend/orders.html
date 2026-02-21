@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FUL RESTAURANT orders — Track and review all your orders." />
+  <title>Orders — FUL RESTAURANT</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════
+       NAVIGATION
+  ══════════════════════════════════════ -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">FUL <span>RESTAURANT</span></a>
+
+      <ul class="nav-links" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li>
+          <a href="cart.html" class="cart-link">
+            Cart
+            <span class="cart-badge" aria-label="Items in cart" style="display:none">0</span>
+          </a>
+        </li>
+        <li><a href="orders.html" class="active">Orders</a></li>
+      </ul>
+
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════
+       PAGE CONTENT
+  ══════════════════════════════════════ -->
+  <main class="page-wrapper" role="main">
+
+    <!-- Page header -->
+    <header class="page-header">
+      <span class="eyebrow">Order History</span>
+      <h1>
+        My Orders
+        <span
+          id="order-count"
+          style="display:inline-block;margin-left:12px;font-family:var(--font-body);font-size:1rem;font-weight:400;color:var(--stone);vertical-align:middle"
+        ></span>
+      </h1>
+      <p>Track your orders and review past dining experiences.</p>
+    </header>
+
+    <!-- Toolbar -->
+    <div style="display:flex;justify-content:flex-end;margin-bottom:32px">
+      <button
+        id="refresh-orders-btn"
+        class="btn btn-outline"
+        aria-label="Refresh orders list"
+      >
+        ↻ Refresh
+      </button>
+    </div>
+
+    <!-- Loading state -->
+    <div
+      id="orders-loading"
+      class="loading-spinner"
+      aria-live="polite"
+      aria-label="Loading orders"
+      style="display:flex"
+    >
+      <div class="spinner"></div>
+      <span>Fetching your orders…</span>
+    </div>
+
+    <!-- User not logged in state -->
+    <div id="not-logged-in" class="empty-state" style="display:none">
+      <div class="empty-icon">🔒</div>
+      <h3>Please Log In</h3>
+      <p>You need to be logged in to view your order history.</p>
+      <a href="/login files/login.html" class="btn btn-accent btn-lg">Login</a>
+      <a href="/login files/signup.html" class="btn btn-outline">Sign Up</a>
+    </div>
+
+    <!-- Error state -->
+    <div id="orders-error" class="empty-state" style="display:none">
+      <div class="empty-icon">⚠️</div>
+      <h3>Unable to load orders</h3>
+      <p id="error-message">Something went wrong. Please try again.</p>
+      <button class="btn btn-accent" onclick="location.reload()">Retry</button>
+    </div>
+
+    <!-- Empty state -->
+    <div id="orders-empty" class="empty-state" style="display:none">
+      <div class="empty-icon">📋</div>
+      <h3>No orders yet</h3>
+      <p>Once you place an order it will appear here.</p>
+      <a href="menu.html" class="btn btn-accent btn-lg">Start Ordering</a>
+    </div>
+
+    <!-- Orders list — populated by orders.js -->
+    <section
+      id="orders-list"
+      class="orders-list"
+      aria-label="Order history"
+      aria-live="polite"
+    ></section>
+
+  </main>
+
+  <!-- ══════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <span class="footer-logo">FUL RESTAURANT</span>
+      <span class="footer-copy">© 2024 FUL RESTAURANT. All rights reserved.</span>
+    </div>
+  </footer>
+
+  <div id="toast-container" role="status" aria-live="polite"></div>
+
+  <script src="utils.js"></script>
+  <script src="orders.js"></script>
+</body>
+</html>

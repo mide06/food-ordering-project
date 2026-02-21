@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Complete Payment</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .paystack-container {
+      max-width: 400px;
+      margin: 60px auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+      padding: 32px 24px 24px 24px;
+      text-align: center;
+    }
+    .paystack-container h2 { margin-bottom: 18px; }
+    .paystack-container .order-id { color: #888; margin-bottom: 18px; }
+    .paystack-methods { margin: 24px 0 18px 0; text-align: left; }
+    .paystack-methods label { display: block; margin-bottom: 10px; font-size: 1.08em; }
+    .paystack-btn {
+      width: 100%;
+      background: #08c175;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.1em;
+      padding: 12px 0;
+      margin-top: 18px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .paystack-btn:disabled { background: #b2dfc7; cursor: not-allowed; }
+    .paystack-success { color: #08c175; margin-top: 18px; font-weight: bold; display: none; }
+  </style>
+</head>
+<body>
+  <div class="paystack-container">
+    <h2>Complete Your Payment</h2>
+    <div class="order-id" id="order-id"></div>
+    <div class="paystack-methods">
+      <label><input type="radio" name="payment-method" value="transfer" checked> Bank Transfer</label>
+      <label><input type="radio" name="payment-method" value="card"> Card Payment</label>
+    </div>
+    <button class="paystack-btn" id="paid-btn">I have paid</button>
+    <div class="paystack-success" id="payment-success">Payment marked as complete!</div>
+  </div>
+  <script src="pay.js"></script>
+</body>
+</html>
