@@ -372,6 +372,11 @@ async function onStatusChange(e) {
     // Refresh filter tab counts
     renderFilterTabs(ordersData);
 
+    // Notify dashboard to refresh stats (revenue, etc.)
+    try {
+      window.parent.postMessage({ type: 'refresh-dashboard' }, '*');
+    } catch (e) { /* ignore */ }
+
   } catch (err) {
     console.error('[Orders] Status update error:', err);
 

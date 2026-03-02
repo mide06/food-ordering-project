@@ -10,11 +10,24 @@ exports.getDashboardStats = async (req, res) => {
     const totalOrders = await Order.count();
     console.log('Total orders:', totalOrders);
     
-    const totalPayments = await Payment.count();
+    // Count total payments from non-cancelled orders (each order should have a payment)
+    const totalPayments = await Order.count({
+      where: {
+        status: {
+          [Op.notIn]: ['cancelled']
+        }
+      }
+    });
     console.log('Total payments:', totalPayments);
     
-    const totalRevenue = await Payment.sum('amount', {
-      where: { status: 'successful' }
+    // Calculate revenue from all orders (not just successful payments)
+    // This includes pending, confirmed, preparing, ready, and delivered orders
+    const totalRevenue = await Order.sum('totalAmount', {
+      where: {
+        status: {
+          [Op.notIn]: ['cancelled']  // Exclude cancelled orders
+        }
+      }
     });
     console.log('Total revenue:', totalRevenue);
 

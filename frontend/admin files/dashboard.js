@@ -260,6 +260,13 @@ document.addEventListener('DOMContentLoaded', () => {
   loadDashboard();
   startAutoRefresh();
 
+  // Listen for refresh-dashboard message from other admin pages
+  window.addEventListener('message', (event) => {
+    if (event?.data?.type === 'refresh-dashboard') {
+      loadDashboard();
+    }
+  });
+
   // Refresh button
   const refreshBtn = document.getElementById('refresh-btn');
   if (refreshBtn) {
